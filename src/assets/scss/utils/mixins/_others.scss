@@ -1,0 +1,16 @@
+@mixin opacity ($opacity: 0.5) {
+	-webkit-opacity: 	$opacity;
+	-moz-opacity: 		$opacity;
+	opacity: 		$opacity;
+}
+@mixin max-size(){
+	max-width: 100%;
+	height: auto;
+}
+
+
+@mixin ulClear(){
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}

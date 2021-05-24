@@ -1,0 +1,11 @@
+@mixin fs($size: $body_font){
+    $rem: $size / 16;
+    font-size: $size * 1px;
+    //font-size:  ~"${rem}rem";
+}
+
+@mixin ln($size: $body_font){
+    $rem: $size / 16;
+    line-height: $size * 1px;
+    //line-height:  ~"${rem}rem";
+}

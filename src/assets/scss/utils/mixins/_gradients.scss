@@ -1,0 +1,30 @@
+@mixin gradient ($startColor: #eee, $endColor: white) {
+	background-color: $startColor;
+	background: -webkit-gradient(linear, left top, left bottom, from($startColor), to($endColor));
+	background: -webkit-linear-gradient(top, $startColor, $endColor);
+	background: -moz-linear-gradient(top, $startColor, $endColor);
+	background: -ms-linear-gradient(top, $startColor, $endColor);
+	background: -o-linear-gradient(top, $startColor, $endColor);
+}
+@mixin horizontal-gradient ($startColor: #eee, $endColor: white) {
+ 	background-color: $startColor;
+	background-image: -webkit-gradient(linear, left top, right top, from($startColor), to($endColor));
+	background-image: -webkit-linear-gradient(left, $startColor, $endColor);
+	background-image: -moz-linear-gradient(left, $startColor, $endColor);
+	background-image: -ms-linear-gradient(left, $startColor, $endColor);
+	background-image: -o-linear-gradient(left, $startColor, $endColor);
+}
+//RADIAL GRADIENT
+$gdColor1: #fff;
+$gdColor2: #000;
+
+@mixin gradRad($gdStart: $gdColor1, $gdEnd: $gdColor2){
+	background: rgb(red($gdStart), green($gdStart), blue($gdStart)); /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover,  rgba(red($gdStart), green($gdStart), blue($gdStart), 1) 0%, rgba(red($gdEnd), green($gdEnd), blue($gdEnd), 1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(red($gdStart), green($gdStart), blue($gdStart), 1)), color-stop(100%,rgba(red($gdEnd), green($gdEnd), blue($gdEnd), 1))); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  rgba(red($gdStart), green($gdStart), blue($gdStart), 1) 0%,rgba(red($gdEnd), green($gdEnd), blue($gdEnd), 1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  rgba(red($gdStart), green($gdStart), blue($gdStart), 1) 0%,rgba(red($gdEnd), green($gdEnd), blue($gdEnd), 1) 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  rgba(red($gdStart), green($gdStart), blue($gdStart), 1) 0%,rgba(red($gdEnd), green($gdEnd), blue($gdEnd), 1) 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center,  rgba(red($gdStart), green($gdStart), blue($gdStart), 1) 0%,rgba(red($gdEnd), green($gdEnd), blue($gdEnd), 1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='${gdStart}', endColorstr='${gdEnd}',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}

@@ -1,0 +1,24 @@
+
+*:focus {
+  outline: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+html {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color:#222324;;
+  }
+}

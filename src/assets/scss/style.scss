@@ -1,0 +1,42 @@
+// If you want to override variables do it here
+@import "variables";
+@import '_variables.scss';
+@import "layout.scss";
+// Import styles
+@import "~@coreui/coreui/scss/coreui";
+
+// If you want to add something do it here
+@import "custom";
+
+.card-header:not(.content-center) > .c-icon:first-child {
+  margin-right: 0.1rem;
+  margin-top: 0.1rem;
+  vertical-align: top;
+  width: 1.2rem;
+  height: 1.2rem;
+  font-size: 1.2rem;
+}
+.c-app {
+  background-color: #222324;
+}
+
+.legendary {
+  color: $legendary;
+}
+
+.epic {
+  color: #a335ee;
+}
+
+.artifact {
+  color: #e6cc80;
+}
+
+.rare {
+  color: #0070dd;
+}
+
+.uncommon {
+  color: #1eff00;
+}
+
