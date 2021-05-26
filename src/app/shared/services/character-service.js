@@ -12,8 +12,18 @@ const renderCharacter = (realm, name) => {
 const fetchCharacterEquipment = (realm, name) => {
   return axios.get(`${apiGlobalConstants.profile}/wow/character/${realm}/${name}/equipment`)
 }
+
+const fetchCharacterSpecialization = (realm, name) => {
+  return axios.get(`${apiGlobalConstants.profile}/wow/character/${realm}/${name}/specializations`)
+}
+
+const fetchCharacterStats = (realm, name) => {
+  return axios.get(`${apiGlobalConstants.profile}/wow/character/${realm}/${name}/statistics`);
+}
 export {
   fetchCharacter,
   renderCharacter,
-  fetchCharacterEquipment
+  fetchCharacterEquipment,
+  fetchCharacterSpecialization,
+  fetchCharacterStats
 }

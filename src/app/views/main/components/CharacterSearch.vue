@@ -25,7 +25,7 @@
                 v-on:keypress.enter="searchCharacter"
               >
               <template #append>
-                <CButton @click="searchCharacter" color="primary">Buscar</CButton>
+                <CButton @click="searchCharacter" color="warning">Buscar</CButton>
               </template>
               </CInput>
             </CCol>

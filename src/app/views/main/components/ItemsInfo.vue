@@ -1,94 +1,67 @@
 <template>
-<div>
-  <CRow v-if="equipment.length > 0" class="mt-4 d-flex">
-    <CCol sm="6" class="mt-4">
-      <div v-for="(item, index) in equipment" :key="item.item.id">
-        <CRow v-if="index < 7 && item.slot.type!='SHIRT'" class="d-none d-lg-flex mt-4 ml-4">
-          <img class="equipment mr-2" :src="item.media.value" />
-          <h5 :class="`${stringUtils.getItemColor(item.quality.type)}`">
-            {{ item.name.es_ES }}
-          </h5>
-        </CRow>
-      </div>
-    </CCol>
-    <CCol sm="6" class="mt-4">
-      <div v-for="(item, index) in equipment" :key="item.item.id">
-        <CRow v-c-tooltip="'Ey'" alignHorizontal="end" v-if="index >= 7 && index < 14 && item.slot.type!='SHIRT'" class="d-none d-lg-flex mt-4 mr-4 float-right">
-          <h5 :class="`${stringUtils.getItemColor(item.quality.type)}`">
-            {{ item.name.es_ES }}
-          </h5>
-          <img class=" equipment ml-2" :src="item.media.value" />
-        </CRow>
-      </div>
-    </CCol>
-  </CRow>
-
-  <CRow v-if="equipment.length > 0" class="mt-4">
-    <CCol sm="6">
-      <CRow alignHorizontal="end" class="d-none d-lg-flex mr-2 text-left">
-      <h5 :class="`${stringUtils.getItemColor(equipment[14].quality.type)}`">
-          {{ equipment[14].name.es_ES }}
-        </h5>
-        <img
-          class="equipment ml-2"
-          :src="equipment[14].media.value"
-        /> 
-      </CRow>
-    </CCol>
-
-    <CCol sm="6">
-      <CRow alignHorizontal="start" class="d-none d-lg-flex ml-2 text-left">
-
-        <img
-          class=" equipment mr-2"
-          :src="equipment[15].media.value"
-        /> 
-      <h5 class="text-left" :class="`${stringUtils.getItemColor(equipment[15].quality.type)}`">
-          {{ equipment[15].name.es_ES }}
-        </h5>
-      </CRow>
-    </CCol>
-  </CRow>
-        <!-- <h5 :class="`${stringUtils.getItemColor(equipment[14].quality.type)}`">
-          {{ equipment[14].name.es_ES }}
-        </h5>
-        <img
-          class="equipment float-right"
-          :src="equipment[14].media.value"
-        />
-        <img
-          class="equipment ml-2"
-          :src="equipment[15].media.value"
-        />
-        <h5 :class="`${stringUtils.getItemColor(equipment[15].quality.type)}`">
-          {{ equipment[15].name.es_ES }}
-        </h5> -->
-</div>
+    <a :href="TooltipProviderWowhead.item(item.item.id)">
+      <img :src="item.media.value" :class="`gear-icon icon game ${stringUtils.getItemColor(item.quality.type)}`" />
+      </a>
 </template>
+
 <script>
+import TooltipProviderWowhead from '@/app/global/Interface/TooltipProviderWowhead';
 import stringUtils from "@/app/shared/utils/stringUtils";
 
 export default {
   name: "ItemsInfo",
   props: {
-    items: { type: Array, required: true },
+    item: { type: Object, required: true },
   },
   computed: {
-    equipment: function () {
-     return [...this.items];
-    },
+    // equipment: function () {
+    //   this.items.map((p) => {
+    //     p.gearSlot = this.checkGearSlot(p);
+    //     [...this.items];
+    //   });
+
+    //   return [...this.items];
+    // },
   },
   data() {
     return {
       stringUtils: stringUtils,
       loading: true,
+      TooltipProviderWowhead : TooltipProviderWowhead,
     };
+  },
+  methods: {
+        check(talent) {
+      console.log(talent);
+    },
+    checkGearSlot(item) {
+      // TODO: Make a better logic for the grid system
+      const slot = item.slot.type;
+
+      let gearSlot;
+      if (slot === "HEAD") gearSlot = 0;
+      else if (slot === "NECK") gearSlot = 1;
+      else if (slot === "SHOULDER") gearSlot = 2;
+      else if (slot === "BACK") gearSlot = 14;
+      else if (slot === "CHEST") gearSlot = 4;
+      else if (slot === "SHIRT") gearSlot = 3;
+      else if (slot === "TABARD") gearSlot = 17;
+      else if (slot === "WRIST") gearSlot = 8;
+      else if (slot === "HANDS") gearSlot = 9;
+      else if (slot === "WAIST") gearSlot = 5;
+      else if (slot === "LEGS") gearSlot = 6;
+      else if (slot === "FEET") gearSlot = 7;
+      else if (slot === "FINGER_1") gearSlot = 10;
+      else if (slot === "FINGER_2") gearSlot = 11;
+      else if (slot === "TRINKET_1") gearSlot = 12;
+      else if (slot === "TRINKET_2") gearSlot = 13;
+      else if (slot === "MAIN_HAND") gearSlot = 15;
+      else if (slot === "OFF_HAND") gearSlot = 16;
+
+      return gearSlot;
+    },
   },
 };
 </script>
-<style scoped>
-/* img {
-  border: 2px solid;
-  border-color: #bebbb7;
-} */
+<style>
 </style>
