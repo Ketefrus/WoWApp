@@ -1,20 +1,7 @@
 <template>
-  <div v-if='items' class="player-gear">
-    <div
-      v-for="(item, gearSlot) in equipment"
-      :key="gearSlot"
-      :style="{
-        display: 'inline-block',
-        textAlign: 'center',
-        gridArea: `item-slot-${item.gearSlot}`,
-      }"
-      :class="`item-slot-${item.gearSlot}`"
-    >
     <a :href="TooltipProviderWowhead.item(item.item.id)">
       <img :src="item.media.value" :class="`gear-icon icon game ${stringUtils.getItemColor(item.quality.type)}`" />
       </a>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -24,17 +11,17 @@ import stringUtils from "@/app/shared/utils/stringUtils";
 export default {
   name: "ItemsInfo",
   props: {
-    items: { type: Array, required: true },
+    item: { type: Object, required: true },
   },
   computed: {
-    equipment: function () {
-      this.items.map((p) => {
-        p.gearSlot = this.checkGearSlot(p);
-        [...this.items];
-      });
+    // equipment: function () {
+    //   this.items.map((p) => {
+    //     p.gearSlot = this.checkGearSlot(p);
+    //     [...this.items];
+    //   });
 
-      return [...this.items];
-    },
+    //   return [...this.items];
+    // },
   },
   data() {
     return {
