@@ -3,6 +3,7 @@
 @import '_variables.scss';
 @import "layout.scss";
 @import 'characterInfo.scss';
+@import 'colorsLayout.scss';
 // Import styles
 @import "~@coreui/coreui/scss/coreui";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
@@ -20,6 +21,7 @@
 }
 .c-app {
   background-color: $backgroundColor;
+  color: #f3eded;
 }
 h1, h2, h3, h4, h5 {
   font-family: Poppins, 'Open Sans', 'Century Gothic', sans-serif;
@@ -31,23 +33,5 @@ h3 {
   margin-bottom: 9px;
   border-bottom: 1px solid #333;
 }
-.legendary {
-  border-color: $legendary !important;
-}
 
-.epic {
-  border-color: #a335ee !important;
-}
-
-.artifact {
-  border-color: #e6cc80 !important;
-}
-
-.rare {
-  border-color: #0070dd !important;
-}
-
-.uncommon {
-  border-color: #1eff00 !important;
-}
 

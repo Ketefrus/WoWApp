@@ -23,7 +23,7 @@
                 >
                   <div class="player-gear">
                     <div class="player-gear-header">
-                      <div class="player-name">{{character.name}}<br/>{{character.realm.name.es_ES}}</div>
+                      <div :class="`${character.character_class.name.en_GB} player-name`">{{character.name}}<br/>{{character.realm.name.es_ES}}</div>
                       <div><b>Nivel medio de objeto:</b> {{character.average_item_level}}</div>
                     </div>
                     <div
@@ -46,6 +46,11 @@
                 </div>
               </div>
             </CCol>
+            
+              <CharacterStats
+                :item="stats"
+              />
+
           </CRow>
         </div>
       </CCol>
@@ -56,12 +61,14 @@
 import stringUtils from "@/app/shared/utils/stringUtils";
 import ItemsInfo from "@/app/views/main/components/ItemsInfo";
 import CharacterTalents from "@/app/views/main/components/shared/CharacterTalents";
+import CharacterStats from "@/app/views/main/components/shared/CharacterStats";
 
 export default {
   name: "CharacterInfo",
   components: {
     ItemsInfo,
     CharacterTalents,
+    CharacterStats
   },
   props: {
     item: { type: Object, required: true },
@@ -73,6 +80,7 @@ export default {
     },
     equipment: { type: Array, required: true },
     specialization: { type: Array, required: true },
+    stats: { type: Object, required: true },
     loading: { type: Boolean, default: false },
   },
   computed: {

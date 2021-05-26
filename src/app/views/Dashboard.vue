@@ -8,13 +8,14 @@
       :images="render"
       :equipment="equipment"
       :specialization="specialization"
+      :stats="stats"
       :loading="loadingCharacter"
     />
   </div>
 </template>
 
 <script>
-import { fetchCharacter, renderCharacter, fetchCharacterEquipment, fetchCharacterSpecialization } from '@/app/shared/services/character-service';
+import { fetchCharacter, renderCharacter, fetchCharacterEquipment, fetchCharacterSpecialization, fetchCharacterStats } from '@/app/shared/services/character-service';
 import { fetchOneItem } from '@/app/shared/services/item-service';
 import { fetchOneSpell } from '@/app/shared/services/spell-service';
 
@@ -31,13 +32,13 @@ export default {
   data () {
     return {
       character: {},
+      stats: {},
       specialization: [],
       render: [],
       equipment: [],
       renderEquipment: [],
       loadingCharacter: false,
-      loadingEquipment: false,
-      loadingSpells: false,
+
     }
   },
   methods: {
@@ -49,8 +50,7 @@ export default {
       await this.getSpecialization(search);
       await this.getRenderCharacter(search);
       await this.getItems(search);
- 
-      console.log(this.specialization);
+      await this.getStats(search);
       this.loadingCharacter = false;
     },
 
@@ -76,7 +76,7 @@ export default {
     },
 
     async getSpecialization(search) {
-      this.loadingSpells = true;
+
       const resp = await fetchCharacterSpecialization(search.realm, search.name);
       // let specSelected = resp.data.specializations;
       // console.log(specSelected);
@@ -88,7 +88,7 @@ export default {
           [...spec];
         });
       this.specialization = spec;
-      this.loadingSpells = false;
+
     },
 
     async getMediaSpell(spell) {
@@ -96,6 +96,12 @@ export default {
       spell.media = resp.data.assets[0];
       return spell;
     },
+
+    async getStats(search) {
+      const resp = await fetchCharacterStats(search.realm, search.name);
+
+      this.stats = resp.data;
+    }
   }
 }
 </script>

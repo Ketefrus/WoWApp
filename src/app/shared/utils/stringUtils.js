@@ -27,8 +27,8 @@ export default {
     return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
   },
 
-  setThreeNumberDecimal(value) {
-    let val = parseFloat(value).toFixed(3);
+  setTwoNumberDecimal(value) {
+    let val = parseFloat(value).toFixed(2);
     return val;
   },
 
@@ -58,6 +58,25 @@ export default {
       : itemName === 'LEGENDARY' ? 'legendary'
       : itemName === 'RARE' ? 'rare'
       : itemName === 'UNCOMMON' ? 'uncommon' : '';
+  },
+  getStatColor(stat) {
+    return stat === 'intelecto' ? 'stat-intellect'
+    : stat === 'fuerza' ? 'stat-strength'
+    : stat === 'agilidad' ? 'stat-agility'
+    : stat === 'crítico' ? 'stat-criticalstrike'
+    : stat === 'celeridad' ? 'stat-haste'
+    : stat === 'maestría' ? 'stat-mastery'
+    : stat === 'versatilidad' ? 'stat-versatility'
+    : stat === 'aguante' ? 'stat-stamina' : '';
+  },
+  getStatIcon(stat) {
+    return stat === 'intelecto' ? 'cil-lightbulb' 
+    : stat === 'aguante' ? 'cil-medical-cross'
+    : stat === 'crítico' ? 'cil-bolt' 
+    : stat === 'agilidad' ? 'cil-paw'
+    : stat === 'celeridad' ? 'cil-clock'
+    : stat === 'maestría' ? 'cil-school'
+    : stat === 'versatilidad' ? 'cil-gem' : ''
   },
   getClassColor(className) {
     return className === 'Pícaro' ? 'warning'
