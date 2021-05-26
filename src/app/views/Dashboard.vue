@@ -56,7 +56,7 @@ export default {
 
     async getRenderCharacter(search) {
       const resp = await renderCharacter(search.realm, search.name);
-      
+      console.log(resp);
       this.render = resp.data.assets;
     },
 
@@ -78,8 +78,6 @@ export default {
     async getSpecialization(search) {
 
       const resp = await fetchCharacterSpecialization(search.realm, search.name);
-      // let specSelected = resp.data.specializations;
-      // console.log(specSelected);
       const selected = resp.data.specializations.find(p =>{ return resp.data.active_specialization.id === p.specialization.id});
       const spec = selected.talents;
         
@@ -99,7 +97,6 @@ export default {
 
     async getStats(search) {
       const resp = await fetchCharacterStats(search.realm, search.name);
-
       this.stats = resp.data;
     }
   }

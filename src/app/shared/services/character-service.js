@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { apiGlobalConstants } from '@/app/global/config';
-
+import { guildMock } from '@/app/shared/utils/mocks/guild.mock';
 const fetchCharacter = (realm, name) => {
  return axios.get(`${apiGlobalConstants.profile}/wow/character/${realm}/${name}`)
 }
@@ -20,10 +20,16 @@ const fetchCharacterSpecialization = (realm, name) => {
 const fetchCharacterStats = (realm, name) => {
   return axios.get(`${apiGlobalConstants.profile}/wow/character/${realm}/${name}/statistics`);
 }
+
+const fetchGuild = () => {
+  const data = guildMock;
+  return data;
+}
 export {
   fetchCharacter,
   renderCharacter,
   fetchCharacterEquipment,
   fetchCharacterSpecialization,
-  fetchCharacterStats
+  fetchCharacterStats,
+  fetchGuild
 }
