@@ -6,6 +6,7 @@ import router from '@/app/router'
 import CoreuiVue from '@coreui/vue'
 import { iconsSet as icons } from '@/assets/icons/icons.js'
 import store from './store'
+import TooltipProviderWowhead from '@/app/global/Interface/TooltipProviderWowhead'
 
 Vue.config.performance = true
 Vue.use(CoreuiVue)
@@ -16,8 +17,12 @@ new Vue({
   router,
   store,
   icons,
+  TooltipProviderWowhead,
   template: '<App/>',
   components: {
     App
+  },
+  created: function () {
+    TooltipProviderWowhead.load();
   }
 })
