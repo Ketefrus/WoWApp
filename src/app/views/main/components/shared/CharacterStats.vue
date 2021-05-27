@@ -1,5 +1,5 @@
 <template>
-  <CCol v-if="stats != null" sm="6">
+  <CCol v-if="stats" sm="6">
     <CRow>
       <CCol md="12">
         <h2 :style="{ marginTop: 0 }">Estadísticas de personaje</h2>
@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     formatStats(item) {
-      if (item) {
+      if (Object.keys(item).length > 0) {
       this.statsFormatted = {
         intelecto: { rating: item.intellect.effective },
         agilidad: { rating: item.agility.effective },

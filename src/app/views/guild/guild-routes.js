@@ -12,7 +12,7 @@ const guildRoutes = [
     },
     children: [
       {
-        path: "",
+        path: "/hermandad",
         name: "Listado",
         component: GuildMain,
         // meta: {
@@ -28,8 +28,9 @@ const guildRoutes = [
         },
         children: [
           {
-            path: '/hermandad/detalle/:id',
+            path: '/hermandad/detalle/:realm',
             name: 'Detalle',
+            props: true,
             meta: {
               auth: true
             }

@@ -8,7 +8,7 @@
       <span class="sr-only">Loading...</span>
     </div>
   </div>
-  <a class="player tank" v-else>
+  <a class="player tank" @click="goToDetail(character)" v-else>
     <div class="role"></div>
     <div class="card">
       <div
@@ -19,10 +19,10 @@
         <h1 :class="`${character.character_class.name.en_GB}`">
           {{ character.name }}
         </h1>
-        <small>Wiwi</small>
-        <div class="flex-main text-muted text-small">wuwu</div>
+        <small>Especialización</small>
+        <div class="flex-main text-muted text-small">clase</div>
         <div class="flex text-muted text-small">
-          <div class="flex-main">wewe</div>
+          <div class="flex-main">ilvl</div>
         </div>
       </div>
     </div>
@@ -64,6 +64,10 @@ export default {
       this.image = resp.data;
       this.loading = false;
     },
+
+    goToDetail(player) {
+      this.$router.push({path: `/hermandad/detalle/${player.id}`, query: {realm: player.realm.slug, name: player.name}})
+    }
   },
 };
 </script>

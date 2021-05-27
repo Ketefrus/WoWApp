@@ -17,9 +17,9 @@
             <CCol sm="6">
               <div v-if="character" class="player-info">
                 <div
-                  v-if="images[2]"
+                  v-if="render"
                   class="player-background"
-                  :style="{ 'background-image': `url(${images[2].value})` }"
+                  :style="{ 'background-image': `url(${render})` }"
                 >
                   <div class="player-gear">
                     <div class="player-gear-header">
@@ -63,6 +63,10 @@ import ItemsInfo from "@/app/views/main/components/ItemsInfo";
 import CharacterTalents from "@/app/views/main/components/shared/CharacterTalents";
 import CharacterStats from "@/app/views/main/components/shared/CharacterStats";
 
+import { renderCharacter, fetchCharacterEquipment, fetchCharacterSpecialization, fetchCharacterStats } from '@/app/shared/services/character-service';
+import { fetchOneItem } from '@/app/shared/services/item-service';
+import { fetchOneSpell } from '@/app/shared/services/spell-service';
+
 export default {
   name: "CharacterInfo",
   components: {
@@ -72,21 +76,19 @@ export default {
   },
   props: {
     item: { type: Object, required: true },
-    images: {
-      type: Array,
-      default() {
-        return [];
-      },
-    },
-    equipment: { type: Array, required: true },
-    specialization: { type: Array, required: true },
-    stats: { type: Object, required: true },
-    loading: { type: Boolean, default: false },
+    loadingCharacter: {type: Boolean, default: true},
+  },
+  watch: {
+    async loadingCharacter() {
+      if (!this.loadingCharacter)
+        await this.getData();
+    }
   },
   computed: {
     character: function () {
       return { ...this.item };
     },
+
     equipmentSlot: function () {
       this.equipment.map((p) => {
         p.gearSlot = this.checkGearSlot(p);
@@ -95,13 +97,83 @@ export default {
 
       return [...this.equipment];
     },
+    search: function () {
+      const info = {
+        name: this.item.name,
+        realm: this.item.realm.slug,
+      }
+      return info;
+    }
   },
   data() {
     return {
       stringUtils: stringUtils,
+      loading: false,
+      // Move logic
+      equipment: [],
+      specialization: [],
+      stats: {},
+      render: null,
     };
   },
   methods: {
+    async getData() {
+      this.loading = true;
+      
+      await this.getSpecialization(this.search);
+      await this.getRenderCharacter(this.search);
+      await this.getItems(this.search);
+      await this.getStats(this.search);
+
+      this.loading = false;
+    },
+    async getRenderCharacter(search) {
+      const resp = await renderCharacter(search.realm, search.name);
+      console.log(resp);
+      this.render = resp.data.assets[2].value;
+    },
+
+    async getItems(search) {
+      const resp = await fetchCharacterEquipment(search.realm, search.name);
+
+      this.equipment = resp.data.equipped_items;
+      this.equipment.map(p => {
+        p = this.getRenderItem(p);
+      });
+    },
+
+    async getRenderItem(equipment) {
+      const resp = await fetchOneItem(equipment.media.id);
+      equipment.media = resp.data.assets[0];
+      return equipment;
+    },
+
+    async getSpecialization(search) {
+
+      const resp = await fetchCharacterSpecialization(search.realm, search.name);
+      console.log(resp);
+      const selected = resp.data.specializations.find(p =>{ return resp.data.active_specialization.id === p.specialization.id});
+      const spec = selected.talents;
+        
+        spec.map(t => {
+          t = this.getMediaSpell(t);
+          [...spec];
+        });
+      this.specialization = spec;
+
+    },
+
+    async getMediaSpell(spell) {
+      const resp = await fetchOneSpell(spell.spell_tooltip.spell.id);
+      spell.media = resp.data.assets[0];
+      return spell;
+    },
+
+    async getStats(search) {
+      const resp = await fetchCharacterStats(search.realm, search.name);
+      this.stats = resp.data;
+    },
+
     checkGearSlot(item) {
       // TODO: Make a better logic for the grid system
       const slot = item.slot.type;
