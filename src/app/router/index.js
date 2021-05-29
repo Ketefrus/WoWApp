@@ -6,7 +6,7 @@ const TheContainer = () => import("@/app/containers/TheContainer");
 
 // Views
 const Dashboard = () => import("@/app/views/Dashboard");
-
+const CharacterList = () => import("@/app/views/main/components/CharacterList");
 Vue.use(Router);
 
 const router = new Router({
@@ -28,6 +28,11 @@ function configRoutes() {
           path: "dashboard",
           name: "Dashboard",
           component: Dashboard
+        },
+        {
+          path: "personajes",
+          name: "Personajes",
+          component: CharacterList
         },
         {
           path: "hermandad",

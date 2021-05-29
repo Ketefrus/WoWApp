@@ -2,6 +2,7 @@
   <CSidebar 
     fixed 
     :minimize="!minimize"
+    :colorscheme="'dark'"
     :show="show"
     @update:show="(value) => $store.commit('set', ['sidebarShow', value])"
   >

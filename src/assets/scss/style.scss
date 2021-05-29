@@ -1,13 +1,15 @@
 // If you want to override variables do it here
 @import "variables";
-@import '_variables.scss';
+@import "_variables.scss";
 @import "layout.scss";
-@import 'characterInfo.scss';
-@import 'colorsLayout.scss';
-@import 'guildLayout.scss';
+@import "characterInfo.scss";
+@import "colorsLayout.scss";
+@import "guildLayout.scss";
+@import "vue-loaders/dist/vue-loaders";
+@import "tableLayout.scss";
 // Import styles
 @import "~@coreui/coreui/scss/coreui";
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
 
 // If you want to add something do it here
 @import "custom";
@@ -23,10 +25,23 @@
 .c-app {
   background-color: $backgroundColor;
   color: #f3eded;
-  
+
   > .offset {
     margin-top: 110px;
   }
+}
+
+.c-sidebar {
+  background-color: $primaryColor;
+}
+.c-sidebar .c-sidebar-nav-link.c-active .c-sidebar-nav-icon,
+.c-sidebar .c-active.c-sidebar-nav-dropdown-toggle .c-sidebar-nav-icon {
+  color: $backgroundColor;
+}
+
+.c-sidebar .c-sidebar-nav-link .c-sidebar-nav-icon,
+.c-sidebar .c-sidebar-nav-dropdown-toggle .c-sidebar-nav-icon {
+  color: rgba(8, 8, 8, 0.5);
 }
 .flex.wrapable {
   flex-wrap: wrap;
@@ -39,9 +54,13 @@
 .flex-sub {
   flex: 0 0 auto;
 }
-h1, h2, h3, h4, h5 {
-  font-family: Poppins, 'Open Sans', 'Century Gothic', sans-serif;
-  color: $primaryColor
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: Poppins, "Open Sans", "Century Gothic", sans-serif;
+  color: $primaryColor;
 }
 h3 {
   font-size: 20px;
@@ -49,5 +68,3 @@ h3 {
   margin-bottom: 9px;
   border-bottom: 1px solid #333;
 }
-
-

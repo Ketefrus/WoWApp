@@ -3,13 +3,14 @@
     <CRow>
       <CCol md="12">
         <div v-if="loading" class="text-center m-5">
-          <div
-            class="spinner-grow text-primary m-auto"
-            style="width: 3rem; height: 3rem"
+          <!-- <div
+            class="spinner-grow text-warning m-auto"
+            style="width: 6rem; height: 6rem"
             role="status"
           >
             <span class="sr-only">Loading...</span>
-          </div>
+          </div> -->
+        <vue-loaders name="pacman" color="#fab700" />
         </div>
 
         <div class="container" v-else>
@@ -119,7 +120,7 @@ export default {
   methods: {
     async getData() {
       this.loading = true;
-      
+
       await this.getSpecialization(this.search);
       await this.getRenderCharacter(this.search);
       await this.getItems(this.search);

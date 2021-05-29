@@ -5,22 +5,26 @@ export const guildMock = {
     {
       id: 1,
       name: 'mataojetes',
-      realm: 'sanguino'
+      realm: 'sanguino',
+      spec: 'Combate'
     },
     {
       id: 2,
       name: 'ketekru',
-      realm: 'sanguino'
+      realm: 'sanguino',
+      spec: 'Sombras'
     },
     {
       id: 3,
       name: 'steef',
-      realm: 'los-errantes'
+      realm: 'los-errantes',
+      spec: 'Restauración'
     },
     {
       id: 4,
       name: 'atemi',
-      realm: 'zuljin'
+      realm: 'zuljin',
+      spec: 'Sutileza'
     }
   ]
 }

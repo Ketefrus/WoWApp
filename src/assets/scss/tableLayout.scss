@@ -1,0 +1,31 @@
+@import '_variables.scss';
+table.data-table {
+  width: 100%;
+  margin-bottom: 20px;
+  color: white !important;
+  font-weight: 400;
+  thead th {
+    border-bottom-color: $primaryColor;
+  }
+  tr:nth-child(even) {
+    background: rgba(255, 255, 255, .03);
+  }
+  tr th, tr td {
+    padding: 7px;
+    border-top: 0px !important;
+  }
+  &.compact tr th, &.compact tr td {
+    padding: 6px;
+  }
+  tr th:first-of-type, tr td:first-of-type {
+    padding-left: 30px;
+  }
+  tr th:last-of-type, tr td:last-of-type {
+    padding-right: 30px;
+  }
+  img, img.icon.game {
+    width: 1.6em;
+    height: 1.6em;
+    margin-top: -.1em;
+  }
+}
