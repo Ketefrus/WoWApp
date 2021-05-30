@@ -30,7 +30,9 @@
     margin-top: 110px;
   }
 }
-
+.card {
+  background-color: $panelColor;
+}
 .c-sidebar {
   background-color: $primaryColor;
 }
@@ -67,4 +69,8 @@ h3 {
   margin-top: 5px;
   margin-bottom: 9px;
   border-bottom: 1px solid #333;
+}
+
+.btn-link {
+  color: $primaryColor;
 }

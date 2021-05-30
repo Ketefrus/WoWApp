@@ -8,10 +8,15 @@ import { iconsSet as icons } from '@/assets/icons/icons.js'
 import store from './store'
 import TooltipProviderWowhead from '@/app/global/Interface/TooltipProviderWowhead'
 import VueLoaders from 'vue-loaders';
+import moment from 'moment'
+
+moment.locale('es');
+
 Vue.config.performance = true
 Vue.use(CoreuiVue)
 Vue.use(VueLoaders)
 Vue.prototype.$log = console.log.bind(console)
+window.moment = moment;
 Vue.component('VueLoader', VueLoaders);
 new Vue({
   el: '#app',

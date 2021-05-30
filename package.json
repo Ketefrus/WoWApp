@@ -39,6 +39,7 @@
     "@coreui/vue-chartjs": "^1.0.6",
     "axios": "^0.21.1",
     "loaders.css": "^0.1.2",
+    "moment": "^2.29.1",
     "regenerator-runtime": "^0.13.7",
     "vue": "~2.6.12",
     "vue-loaders": "^4.1.4",

@@ -20,19 +20,22 @@
           }"
         >
           <template #id="{ item }">
-            <td>
-              {{ item.id }}
+            <td class="align-middle" >
+              <span>
+                {{ item.id }}
+              </span>
             </td>
           </template>
           <template #name="{ item }">
             <td>
-              <span v-if="item.name">
+              <img class='rounded-circle' :src="item.media[0].value"/>
+              <span  class="ml-2" v-if="item.name">
                 {{ item.name }}
               </span>
             </td>
           </template>
           <template #realm="{ item }">
-            <td>
+            <td class="align-middle">
               <span v-if="item.realm">
                 {{ item.realm }}
               </span>
@@ -49,6 +52,7 @@
 
 <script>
 import { fetchGuild } from "@/app/shared/services/character-service";
+import { renderCharacter } from "@/app/shared/services/character-service";
 
 export default {
   name: "CharacterList",
@@ -57,9 +61,10 @@ export default {
       playerList: [],
       guild: [],
       loading: true,
+      image: null,
       campos: [
         { key: "id", label: "id", sorter: true },
-        { key: "name", label: "Nombre", sorter: true },
+        { key: "name", label: "Personaje", sorter: true },
         { key: "realm", label: "Reino" },
       ],
     };
@@ -69,12 +74,22 @@ export default {
   },
   methods: {
     async getData() {
+      await this.getCharacters();
+      this.playerList.forEach(async p => await this.getRender(p));
+      console.log(this.playerList);
+    },
+    async getCharacters() {
       const resp = await fetchGuild();
       this.playerList = [...resp.data];
     },
+    async getRender(player) {
+      const resp = await renderCharacter(player.realm, player.name);
+      player.media = resp.data.assets;
+    }
   },
 };
 </script>
 
 <style>
+
 </style>
