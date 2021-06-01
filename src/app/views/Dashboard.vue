@@ -7,6 +7,22 @@
       :loadingCharacter="loadingCharacter"
       :item="character"
     />
+    <div v-if="showWelcome" class="container offset">
+    <div class="panel">
+      <div class="panel-body pad">
+        <div d-flex flex-row class="mr-3 p-4">
+        <h3 :style="{'font-size' : '2em'}">
+          Bienvenido a WoWChecker
+        </h3>
+        <p class="text-justify mt-4">
+          Utiliza el buscador para encontrar personajes y analizar su equipo.
+          <br>Puedes reclamar un personaje que no haya sido reclamado antes para acceder a él
+          rápidamente y consultar su equipo y unirlo a hermandades.
+        </p>
+        </div>
+      </div>
+    </div>
+    </div>
   </div>
 </template>
 
@@ -32,6 +48,7 @@ export default {
       equipment: [],
       renderEquipment: [],
       loadingCharacter: true,
+      showWelcome: true,
 
     }
   },
@@ -41,8 +58,9 @@ export default {
 
       const resp = await fetchCharacter(search.realm, search.name);
       this.character = resp.data;
-
       this.loadingCharacter = false;
+
+      this.showWelcome = false;
     },
   }
 }

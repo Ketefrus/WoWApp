@@ -7,6 +7,7 @@
 @import "guildLayout.scss";
 @import "vue-loaders/dist/vue-loaders";
 @import "tableLayout.scss";
+@import "Modal.scss";
 // Import styles
 @import "~@coreui/coreui/scss/coreui";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
@@ -45,6 +46,13 @@
 .c-sidebar .c-sidebar-nav-dropdown-toggle .c-sidebar-nav-icon {
   color: rgba(8, 8, 8, 0.5);
 }
+.c-subheader {
+  background-color: $panelColor;
+  border-color: $primaryColor;
+  a {
+    color: $primaryColor
+  }
+}
 .flex.wrapable {
   flex-wrap: wrap;
 }
@@ -70,7 +78,34 @@ h3 {
   margin-bottom: 9px;
   border-bottom: 1px solid #333;
 }
-
+.breadcrumb-item + .breadcrumb-item::before {
+  content: ">>" !important;
+}
 .btn-link {
   color: $primaryColor;
 }
+.btn-warning:not(.btn-ghost-warning){
+  color: $backgroundColor;
+  font-weight: 400;
+}
+.form-control {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 12px;
+  height: auto;
+  background: rgba(0, 0, 0, 0.3);
+  font-size: 1em;
+  box-shadow: none !important;
+  color: #fdf7ea;
+  border-radius: 0;
+}
+.form-control:focus {
+  box-shadow: none !important;
+  border: 1px solid $primaryColor;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fdf7ea;
+}
+
+select option {
+  background: $backgroundColor !important;
+}
+

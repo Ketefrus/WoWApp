@@ -9,10 +9,20 @@ import store from './store'
 import TooltipProviderWowhead from '@/app/global/Interface/TooltipProviderWowhead'
 import VueLoaders from 'vue-loaders';
 import moment from 'moment'
+import Toasted  from 'vue-toasted';
+import Multiselect from 'vue-multiselect'
+import { ModelSelect } from 'vue-search-select'
+import 'vue-multiselect/dist/vue-multiselect.min.css'
+import 'vue-search-select/dist/VueSearchSelect.css'
 
+Vue.component('model-select', ModelSelect);
+Vue.component('multiselect', Multiselect);
 moment.locale('es');
 
 Vue.config.performance = true
+let Options = {}
+Vue.use(Toasted, Options)
+
 Vue.use(CoreuiVue)
 Vue.use(VueLoaders)
 Vue.prototype.$log = console.log.bind(console)

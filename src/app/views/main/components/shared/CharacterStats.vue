@@ -30,7 +30,7 @@
     </CRow>
     <CRow :style="{'padding-top': '150px' }">
       <CCol md="12">
-      <button type="button" class="btn btn-outline-warning btn-lg btn-block">Añadir a Mis personajes</button>
+      <button type="button" @click="$emit('addCharacter')" class="btn btn-outline-warning btn-lg btn-block">Añadir a Mis personajes</button>
       </CCol>
     </CRow>
   </CCol>

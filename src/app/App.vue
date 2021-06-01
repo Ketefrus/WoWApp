@@ -18,10 +18,10 @@ export default {
       getLoggedUser().then(response => {
 
         if (response.status == 200) {
-          this.user = response.data.data;
+          this.user = response.data;
         }
 
-        if (response.data.error) {
+        if (response.status != 200) {
           localStorage.removeItem('token');
           this.$router.push('/login');
         }

@@ -1,5 +1,6 @@
 const GuildMain = () => import("@/app/views/guild/views/GuildMain");
 const GuildDetail = () => import("@/app/views/guild/views/GuildDetail");
+const GuildList = () => import("@/app/views/guild/views/GuildList");
 const guildRoutes = [
   {
     path: "",
@@ -15,9 +16,17 @@ const guildRoutes = [
         path: "/hermandad",
         name: "Listado",
         component: GuildMain,
-        // meta: {
-        //   auth: true
-        // }
+        meta: {
+          auth: true
+        }
+      },
+      {
+        path: "/hermandad/index",
+        name: "Index",
+        component: GuildList,
+        meta: {
+          auth: true,
+        }
       },
       {
         path: "/hermandad/detalle",

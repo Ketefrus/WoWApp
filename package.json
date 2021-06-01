@@ -43,7 +43,10 @@
     "regenerator-runtime": "^0.13.7",
     "vue": "~2.6.12",
     "vue-loaders": "^4.1.4",
+    "vue-multiselect": "^2.1.6",
     "vue-router": "^3.5.1",
+    "vue-search-select": "^2.9.3",
+    "vue-toasted": "^1.1.28",
     "vuex": "~3.6.2"
   },
   "devDependencies": {

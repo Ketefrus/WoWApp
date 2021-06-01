@@ -10,7 +10,7 @@
           >
             <span class="sr-only">Loading...</span>
           </div> -->
-        <vue-loaders name="pacman" color="#fab700" />
+          <vue-loaders name="pacman" color="#fab700" />
         </div>
 
         <div class="container" v-else>
@@ -24,8 +24,17 @@
                 >
                   <div class="player-gear">
                     <div class="player-gear-header">
-                      <div :class="`${character.character_class.name.en_GB} player-name`">{{character.name}}<br/>{{character.realm.name.es_ES}}</div>
-                      <div><b>Nivel medio de objeto:</b> {{character.average_item_level}}</div>
+                      <div
+                        :class="`${character.character_class.name.en_GB} player-name`"
+                      >
+                        {{ character.name }}<br />{{
+                          character.realm.name.es_ES
+                        }}
+                      </div>
+                      <div>
+                        <b>Nivel medio de objeto:</b>
+                        {{ character.average_item_level }}
+                      </div>
                     </div>
                     <div
                       v-for="(item, gearSlot) in equipmentSlot"
@@ -47,11 +56,8 @@
                 </div>
               </div>
             </CCol>
-            
-              <CharacterStats
-                :item="stats"
-              />
 
+            <CharacterStats :item="stats" @addCharacter="addCharacter" />
           </CRow>
         </div>
       </CCol>
@@ -64,26 +70,31 @@ import ItemsInfo from "@/app/views/main/components/ItemsInfo";
 import CharacterTalents from "@/app/views/main/components/shared/CharacterTalents";
 import CharacterStats from "@/app/views/main/components/shared/CharacterStats";
 
-import { renderCharacter, fetchCharacterEquipment, fetchCharacterSpecialization, fetchCharacterStats } from '@/app/shared/services/character-service';
-import { fetchOneItem } from '@/app/shared/services/item-service';
-import { fetchOneSpell } from '@/app/shared/services/spell-service';
+import {
+  renderCharacter,
+  fetchCharacterEquipment,
+  addCharacter,
+  fetchCharacterSpecialization,
+  fetchCharacterStats,
+} from "@/app/shared/services/character-service";
+import { fetchOneItem } from "@/app/shared/services/item-service";
+import { fetchOneSpell } from "@/app/shared/services/spell-service";
 
 export default {
   name: "CharacterInfo",
   components: {
     ItemsInfo,
     CharacterTalents,
-    CharacterStats
+    CharacterStats,
   },
   props: {
     item: { type: Object, required: true },
-    loadingCharacter: {type: Boolean, default: true},
+    loadingCharacter: { type: Boolean, default: true },
   },
   watch: {
     async loadingCharacter() {
-      if (!this.loadingCharacter)
-        await this.getData();
-    }
+      if (!this.loadingCharacter) await this.getData();
+    },
   },
   computed: {
     character: function () {
@@ -100,11 +111,11 @@ export default {
     },
     search: function () {
       const info = {
-        name: this.item.name,
-        realm: this.item.realm.slug,
-      }
+        name: this.item.name.toLowerCase(),
+        realm: this.item.realm.slug.toLowerCase(),
+      };
       return info;
-    }
+    },
   },
   data() {
     return {
@@ -130,7 +141,7 @@ export default {
     },
     async getRenderCharacter(search) {
       const resp = await renderCharacter(search.realm, search.name);
-      console.log(resp);
+
       this.render = resp.data.assets[2].value;
     },
 
@@ -138,7 +149,7 @@ export default {
       const resp = await fetchCharacterEquipment(search.realm, search.name);
 
       this.equipment = resp.data.equipped_items;
-      this.equipment.map(p => {
+      this.equipment.map((p) => {
         p = this.getRenderItem(p);
       });
     },
@@ -150,18 +161,21 @@ export default {
     },
 
     async getSpecialization(search) {
-
-      const resp = await fetchCharacterSpecialization(search.realm, search.name);
+      const resp = await fetchCharacterSpecialization(
+        search.realm,
+        search.name
+      );
       console.log(resp);
-      const selected = resp.data.specializations.find(p =>{ return resp.data.active_specialization.id === p.specialization.id});
+      const selected = resp.data.specializations.find((p) => {
+        return resp.data.active_specialization.id === p.specialization.id;
+      });
       const spec = selected.talents;
-        
-        spec.map(t => {
-          t = this.getMediaSpell(t);
-          [...spec];
-        });
-      this.specialization = spec;
 
+      spec.map((t) => {
+        t = this.getMediaSpell(t);
+        [...spec];
+      });
+      this.specialization = spec;
     },
 
     async getMediaSpell(spell) {
@@ -174,7 +188,26 @@ export default {
       const resp = await fetchCharacterStats(search.realm, search.name);
       this.stats = resp.data;
     },
-
+    async addCharacter() {
+      try {
+        await addCharacter(this.search);
+          this.$toasted.show('Personaje añadido', {
+            theme: 'toasted-primary',
+            position: 'bottom-center',
+            type: 'success',
+            duration: '3000',
+            
+          })
+      } catch (error) {
+          this.$toasted.show('Personaje ya reclamado', {
+            theme: 'toasted-primary',
+            position: 'bottom-center',
+            type: 'error',
+            duration: '3000',
+            
+          })
+      }
+    },
     checkGearSlot(item) {
       // TODO: Make a better logic for the grid system
       const slot = item.slot.type;

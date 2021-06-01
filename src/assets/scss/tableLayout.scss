@@ -28,12 +28,15 @@ table.data-table {
   tr th:last-of-type, tr td:last-of-type {
     padding-right: 30px;
   }
-  img, img.icon.game {
+  img{
+  margin-top: -.1em;
+  &.icon {
     // width: 1.6em;
     // height: 1.6em;
-    width: 3.6em;
-    height: 3.6em;
-    border: 2.5px solid $primaryColor;
-    margin-top: -.1em;
+    width: 3.6em !important;
+    height: 3.6em !important;
+    border: 2.5px solid $primaryColor !important;
+    
   }
+}
 }

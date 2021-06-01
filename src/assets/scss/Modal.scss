@@ -1,0 +1,12 @@
+@import '_variables.scss';
+
+.modal-content {
+  background-color: $panelColor !important;
+  .modal-header {
+    padding: 10px;
+    border-bottom: 1px solid #333;
+  }
+  .modal-footer {
+    border-color: $primaryColor;
+  }
+}
