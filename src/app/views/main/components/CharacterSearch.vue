@@ -56,7 +56,7 @@
                 v-on:keypress.enter="searchCharacter"
               >
                 <template #append>
-                  <CButton @click="searchCharacter" color="warning"
+                  <CButton @click="searchCharacter" shape="square" color="warning"
                     >Buscar</CButton
                   >
                 </template>

@@ -7,7 +7,7 @@ const TheContainer = () => import("@/app/containers/TheContainer");
 
 // Views
 const Dashboard = () => import("@/app/views/Dashboard");
-const CharacterList = () => import("@/app/views/main/components/CharacterList");
+const CharacterListMain = () => import("@/app/views/main/components/CharacterListMain");
 const CharacterDetail = () =>import("@/app/views/main/components/CharacterDetail");
 const Login = () => import("@/app/views/auth/Login");
 const Register = () => import("@/app/views/auth/Register");
@@ -53,7 +53,7 @@ function configRoutes() {
             {
               path: "/personajes",
               name: "",
-              component: CharacterList
+              component: CharacterListMain
             },
             {
               path: "/personajes/detalle/:id",

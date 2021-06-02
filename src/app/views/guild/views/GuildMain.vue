@@ -85,6 +85,37 @@
               </CCollapse>
             </div>
           </CCollapse>
+
+          <div class="panel mt-4">
+            <div class="panel-body pad">
+              <div d-flex flex-row class="mr-3 p-2">
+                <h3 :style="{ 'font-size': '2em' }">Información y avisos</h3>
+                <p class="text-justify mt-4">Lorem ipsum blablablabla</p>
+              </div>
+              <discord-messages>
+                <discord-message
+                  v-for="(message, index) in messages"
+                  :key="index"
+                >
+                  {{ message }}
+                </discord-message>
+              </discord-messages>
+              <CInput
+                type="text"
+                id="message"
+                name="message"
+                placeholder="Escribe un aviso..."
+                v-model="message"
+                v-on:keypress.enter="addMessage"
+              >
+                <template #append>
+                  <CButton @click="addMessage" shape="square" color="outline-warning"
+                    >Enviar</CButton
+                  >
+                </template>
+              </CInput>
+            </div>
+          </div>
           <!-- MAIN -->
           <h1 :style="{ lineHeight: 1.4, margin: 2 }">
             LISTADO DE HERMANDAD
@@ -127,12 +158,11 @@ import {
   fetchGuildCharacters,
   addCharacterGuild,
   updateRecluitment,
-  deleteCharacterGuild
+  deleteCharacterGuild,
 } from "@/app/shared/services/guild-service";
 import {
   fetchCharacter,
   fetchMyCharacters,
-  renderCharacter,
 } from "@/app/shared/services/character-service";
 import GuildTile from "@/app/views/guild/views/shared/GuildTile";
 
@@ -145,6 +175,7 @@ export default {
     return {
       playerList: [],
       guild: [],
+      messages: ["Guapa", "Holi"],
       guildOpen: false,
       loading: true,
       guildName: null,
@@ -152,6 +183,8 @@ export default {
       charAdded: null,
       guildId: null,
       ownerGuild: false,
+      member: false,
+      message: "",
       badgeText: "",
       myChar: [],
     };
@@ -186,19 +219,25 @@ export default {
     async getData() {
       this.loading = true;
       try {
+        this.member = false;
         this.guild = [];
         this.playerList = await this.getPlayers();
+
+        await this.recluitmentChecker();
         await this.getCharacter();
+        this.member = this.memberChecker();
+
         this.loading = false;
       } catch (error) {
-        this.loading = false
+        this.loading = false;
+        console.log(error);
         this.$toasted.show("Error al obtener los datos", {
           theme: "toasted-primary",
           position: "bottom-center",
           type: "error",
           duration: "3000",
         });
-      }      
+      }
     },
     async getPlayers() {
       const resp = await fetchOneGuild(this.guildName);
@@ -208,6 +247,10 @@ export default {
       this.guildId = resp.data._id;
       this.guildOpen = resp.data.open;
 
+      const characters = await fetchGuildCharacters(this.guildId);
+      return [...characters.data];
+    },
+    async recluitmentChecker() {
       if (this.guildOpen) {
         this.badgeText = "Cerrar reclutaciones";
         const clientChar = await fetchMyCharacters();
@@ -218,10 +261,7 @@ export default {
       } else {
         this.badgeText = "Abrir reclutaciones";
       }
-      const characters = await fetchGuildCharacters(this.guildId);
-      return [...characters.data];
     },
-
     async getCharacter() {
       this.playerList.forEach(async (player) => {
         const resp = await fetchCharacter(player.realm, player.name);
@@ -229,6 +269,20 @@ export default {
       });
     },
 
+    memberChecker() {
+      const search = this.playerList.find(
+        (p) => p.owner_id == localStorage.getItem("user_id")
+      );
+
+      return search == null ? false : true;
+    },
+
+    addMessage() {
+      if (this.message!="") {
+        this.messages.push(this.message);
+        this.message = "";
+      }
+    },
     async recluit() {
       try {
         await addCharacterGuild(this.guildName, this.charAdded._id);

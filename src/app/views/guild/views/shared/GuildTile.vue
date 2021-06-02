@@ -87,10 +87,8 @@ export default {
       
     },
     async getRenderTile(player) {
-      console.log(player);
       this.loading = true;
       const resp = await renderCharacter(player.realm.slug, player.name);
-      console.log(resp);
       this.image = resp.data;
       this.loading = false;
     },

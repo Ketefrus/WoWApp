@@ -1,11 +1,5 @@
 <template>
-  <div class="container offset">
-    <div class="flex wrapable" :style="{ marginBottom: 15 }">
-      <div class="flex-main">
-        <h1 :style="{ lineHeight: 1.4, margin: 0, padding: 2 }">
-          LISTADO DE PERSONAJES
-        </h1>
-        <div class="panel">
+          <div class="panel">
           <!-- <div class="panel-heading">
         <h1 :style="{ lineHeight: 1.4, margin: 0}">LISTADO DE PERSONAJES</h1>
       </div> -->
@@ -63,9 +57,6 @@
             </CDataTable>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -74,7 +65,6 @@ import {
   deleteCharacter,
 } from "@/app/shared/services/character-service";
 import { renderCharacter } from "@/app/shared/services/character-service";
-
 export default {
   name: "CharacterList",
   data() {
@@ -90,10 +80,6 @@ export default {
       ],
     };
   },
-  // computed: {
-  //   async characters() {
-  //   }
-  // }
   async created() {
     await this.getData();
   },
@@ -158,8 +144,9 @@ export default {
         });
     },
   },
-};
+}
 </script>
 
 <style>
+
 </style>
