@@ -45,8 +45,8 @@ const fetchMyCharacters = () => {
   });
 };
 
-const addCharacter = (character) => {
-  return axios.post(`${apiGlobalConstants.utils}/personaje/nuevo`, {realm: character.realm, name: character.name}, {
+const addCharacter = (character, faction) => {
+  return axios.post(`${apiGlobalConstants.utils}/personaje/nuevo`, {realm: character.realm, name: character.name, faction: faction}, {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
       "X-Requested-With": "XMLHttpRequest"

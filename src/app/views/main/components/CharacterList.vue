@@ -2,7 +2,7 @@
   <div class="container offset">
     <div class="flex wrapable" :style="{ marginBottom: 15 }">
       <div class="flex-main">
-        <h1 :style="{ lineHeight: 1.4, margin: 0 }">LISTADO DE PERSONAJES</h1>
+        <h1 :style="{ lineHeight: 1.4, margin: 0, padding: 2}">LISTADO DE PERSONAJES</h1>
         <div class="panel">
           <!-- <div class="panel-heading">
         <h1 :style="{ lineHeight: 1.4, margin: 0}">LISTADO DE PERSONAJES</h1>
@@ -18,16 +18,19 @@
               hover
               clickable-rows
               @row-clicked="rowClicked"
-              :addTableClasses="'data-table'"
+              :addTableClasses="'data-table mt-4'"
               :noItemsView="{
                 noResults: ' sin resultados disponibles ',
                 noItems: ' sin resultados',
               }"
             >
-              <template #id="{ item }">
+              <template #guild_name="{ item }">
                 <td class="align-middle">
-                  <span>
-                    {{ item.id }}
+                  <span v-if="item.guild_name && item.guild_name != ''">
+                    <CButton color="link">{{ item.guild_name }}</CButton>
+                  </span>
+                  <span v-else>
+                    Sin hermandad
                   </span>
                 </td>
               </template>
@@ -66,9 +69,9 @@ export default {
       loading: true,
       image: null,
       campos: [
-        { key: "id", label: "id", sorter: true },
         { key: "name", label: "Personaje", sorter: true },
         { key: "realm", label: "Reino" },
+        { key: "guild_name", label: "Hermandad" },
       ],
     };
   },
@@ -83,6 +86,11 @@ export default {
     async getData() {
       this.loading = true;
       const resp = await fetchMyCharacters();
+      console.log(resp);
+      if(resp.status == 204) {
+        this.loading = false;
+        return;
+      }
       let characters = [...resp.data];
 
       await this.getMedia(characters);
@@ -101,10 +109,11 @@ export default {
       );
     },
     rowClicked(item, index, column, e) {
-      console.log(item);
-      console.log(index);
-      console.log(column),
-      console.log(e);
+
+      if (column == 'guild_name' && item.guild_name !== "")
+        this.$router.push({path: `/hermandad/listado/${item.guild_name}`, query: { name: item.guild_name }});
+      else
+        this.$router.push({path: `/personajes/detalle/${item._id}`, query: {realm: item.realm, name: item.name}})
     }
   },
 };

@@ -13,32 +13,17 @@ const guildRoutes = [
     },
     children: [
       {
-        path: "/hermandad",
-        name: "Listado",
+        path: "/hermandad/listado",
+        name: "",
         component: GuildMain,
-        meta: {
-          auth: true
-        }
-      },
-      {
-        path: "/hermandad/index",
-        name: "Index",
-        component: GuildList,
-        meta: {
-          auth: true,
-        }
-      },
-      {
-        path: "/hermandad/detalle",
-        name: '',
-        component: GuildDetail,
+        props: true,
         meta: {
           auth: true
         },
         children: [
           {
-            path: '/hermandad/detalle/:realm',
-            name: 'Detalle',
+            path: "/hermandad/listado/:name",
+            name: "Listado",
             props: true,
             meta: {
               auth: true
@@ -46,10 +31,35 @@ const guildRoutes = [
           }
         ]
       },
-    ]
 
-  },
+      {
+        path: "/hermandad",
+        name: "Index",
+        component: GuildList,
+        meta: {
+          auth: true
+        }
+      },
+      {
+        path: "/hermandad/detalle",
+        name: "",
+        component: GuildDetail,
+        meta: {
+          auth: true
+        },
+        children: [
+          {
+            path: "/hermandad/detalle/:realm",
+            name: "Detalle",
+            props: true,
+            meta: {
+              auth: true
+            }
+          }
+        ]
+      }
+    ]
+  }
 ];
 
 export default guildRoutes;
-

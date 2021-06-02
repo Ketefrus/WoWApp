@@ -8,7 +8,9 @@ const TheContainer = () => import("@/app/containers/TheContainer");
 // Views
 const Dashboard = () => import("@/app/views/Dashboard");
 const CharacterList = () => import("@/app/views/main/components/CharacterList");
+const CharacterDetail = () =>import("@/app/views/main/components/CharacterDetail");
 const Login = () => import("@/app/views/auth/Login");
+const Register = () => import("@/app/views/auth/Register");
 
 Vue.use(Router);
 
@@ -35,18 +37,33 @@ function configRoutes() {
             auth: true
           }
         },
-        // {
-        //   path: "login",
-        //   name: "Login",
-        //   component: Login
-        // },
         {
-          path: "personajes",
+          path: "/personajes/listado",
+          redirect: "/personajes",
           name: "Personajes",
-          component: CharacterList,
+          component: {render(c) {
+            return c("router-view")
+          }
+          },
           meta: {
             auth: true
-          }
+          },
+          children: [
+            {
+              path: "/personajes",
+              name: "",
+              component: CharacterList
+            },
+            {
+              path: "/personajes/detalle/:id",
+              name: "Detalle",
+              component: CharacterDetail,
+              props: true,
+              meta: {
+                auth: true
+              }
+            }
+          ]
         },
         {
           path: "hermandad",
@@ -65,6 +82,11 @@ function configRoutes() {
       path: "/login",
       name: "Login",
       component: Login
+    },
+    {
+      path: "/register",
+      name: "Registro",
+      component: Register
     }
   ];
 }

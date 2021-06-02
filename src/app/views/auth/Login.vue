@@ -65,7 +65,7 @@
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
-                <CButton color="dark" variant="outline" size="lg">
+                <CButton color="dark" @click="register" variant="outline" size="lg">
                   Registrarse
                 </CButton>
               </CCardBody>
@@ -106,6 +106,9 @@ export default {
         console.log(error);
       }
     },
+    async register() {
+      this.$router.push({ path: '/register' });
+    }
   },
 };
 </script>

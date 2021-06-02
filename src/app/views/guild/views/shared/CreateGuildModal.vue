@@ -29,8 +29,8 @@
               placholder="nombre de hermandad"
               :plain="true"
               :options="[
-                { value: 'horde', label: 'Horda' },
-                { value: 'alliance', label: 'Alianza' },
+                { value: 'Horde', label: 'Horda' },
+                { value: 'Alliance', label: 'Alianza' },
               ]"
               required
             />

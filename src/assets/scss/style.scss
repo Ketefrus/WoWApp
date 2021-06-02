@@ -83,6 +83,7 @@ h3 {
 }
 .btn-link {
   color: $primaryColor;
+  text-decoration: none !important;
 }
 .btn-warning:not(.btn-ghost-warning){
   color: $backgroundColor;

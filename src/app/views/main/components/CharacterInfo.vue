@@ -190,7 +190,8 @@ export default {
     },
     async addCharacter() {
       try {
-        await addCharacter(this.search);
+        
+        await addCharacter(this.search, this.character.faction.name.en_GB);
           this.$toasted.show('Personaje añadido', {
             theme: 'toasted-primary',
             position: 'bottom-center',

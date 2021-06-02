@@ -81,7 +81,7 @@
                 :disabled="loading"
                 @click="showModal=true"
                 v-c-tooltip.hover.click="
-                  'Ajusta el listado con el Filtro de Pagos'
+                  'Crea tu propia hermandad'
                 "
                 class="mr-2"
                 type="submit"
@@ -105,7 +105,7 @@
 </template>
 
 <script>
-import { fetchAllGuilds } from "@/app/shared/services/guild-service";
+import { fetchAllGuilds, addGuild } from "@/app/shared/services/guild-service";
 // import { renderCharacter } from "@/app/shared/services/character-service";
 import CreateGuildModal from './shared/CreateGuildModal';
 export default {
@@ -155,13 +155,19 @@ export default {
         })
       );
     },
-    create(guild) {
-      console.log(guild);
+    async create(guild) {
+      try {
+        await addGuild(guild.name, guild.faction);
+        await this.getData();
+      } catch (err) {
+        console.log(err);
+      }
     },
     rowClicked(item, index, column, e) {
       console.log(item);
       console.log(index);
       console.log(column), console.log(e);
+      this.$router.push({path: `/hermandad/listado/${item.name}`, query: { name: item.name }})
     },
   },
 };

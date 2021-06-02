@@ -1,14 +1,14 @@
 <template>
   <div v-if="loading" class="text-center m-5">
     <div
-      class="spinner-grow text-primary m-auto"
+      class="spinner-grow text-warning m-auto"
       style="width: 3rem; height: 3rem"
       role="status"
     >
       <span class="sr-only">Loading...</span>
     </div>
   </div>
-  <a class="player tank" @click="goToDetail(character)" v-else>
+  <a :class="'player tank'" @click="goToDetail(character)" v-else>
     <div class="role"></div>
     <div class="card">
       <div
@@ -19,10 +19,10 @@
         <h1 :class="`${character.character_class.name.en_GB}`">
           {{ character.name }}
         </h1>
-        <small>Especialización</small>
-        <div class="flex-main text-muted text-small">clase</div>
+        <small>{{character.character_class.name.es_ES}} {{character.active_spec.name.es_ES}}</small>
+        <div class="flex-main text-muted text-small">Nivel {{character.level}}</div>
         <div class="flex text-muted text-small">
-          <div class="flex-main">ilvl</div>
+          <div class="flex-main">{{character.average_item_level}} ilvl</div>
         </div>
       </div>
     </div>

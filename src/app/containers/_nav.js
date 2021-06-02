@@ -20,6 +20,12 @@ export default [
         to: '/hermandad',
         icon: 'cil-speedometer'
       },
+      // {
+      //   _name: 'CSidebarNavItem',
+      //   name: 'Logout',
+      //   to: '/logout',
+      //   icon: 'cil-speedometer'
+      // }
     ]
   }
 ]

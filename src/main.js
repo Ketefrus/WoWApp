@@ -14,6 +14,7 @@ import Multiselect from 'vue-multiselect'
 import { ModelSelect } from 'vue-search-select'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 import 'vue-search-select/dist/VueSearchSelect.css'
+import Vuelidate from 'vuelidate'
 
 Vue.component('model-select', ModelSelect);
 Vue.component('multiselect', Multiselect);
@@ -22,7 +23,7 @@ moment.locale('es');
 Vue.config.performance = true
 let Options = {}
 Vue.use(Toasted, Options)
-
+Vue.use(Vuelidate)
 Vue.use(CoreuiVue)
 Vue.use(VueLoaders)
 Vue.prototype.$log = console.log.bind(console)

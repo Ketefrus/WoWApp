@@ -32,7 +32,7 @@
   }
 .player-selection {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(125px, 0.2fr));
 
   .player {
     cursor: pointer;
@@ -40,6 +40,7 @@
     overflow: hidden;
     border: 2px solid transparent;
     flex-flow: column;
+    max-width: 300px;
     color: #fff;
 
     &:hover, &.selected {
