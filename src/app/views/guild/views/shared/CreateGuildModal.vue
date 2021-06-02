@@ -52,7 +52,7 @@ export default {
   name: "CreateGuildModal",
   data() {
     return {
-      faction: null,
+      faction: 'Horde',
       name: null,
     };
   },

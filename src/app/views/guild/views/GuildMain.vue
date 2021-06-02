@@ -114,6 +114,8 @@
           v-for="(player, index) in guild"
           :key="index"
           :character="player"
+          :admin="ownerGuild"
+          @deleteCharacter="deleteCharacter($event)"
         />
       </div>
     </div>
@@ -125,6 +127,7 @@ import {
   fetchGuildCharacters,
   addCharacterGuild,
   updateRecluitment,
+  deleteCharacterGuild
 } from "@/app/shared/services/guild-service";
 import {
   fetchCharacter,
@@ -160,6 +163,26 @@ export default {
     }
   },
   methods: {
+    async deleteCharacter(character) {
+      try {
+        await deleteCharacterGuild(character);
+        this.getData();
+        this.$toasted.show("Personaje eliminado", {
+          theme: "toasted-primary",
+          position: "bottom-center",
+          type: "success",
+          duration: "3000",
+        });
+      } catch (error) {
+        console.log(error);
+        this.$toasted.show("Error borrando al personaje de la hermandad", {
+          theme: "toasted-primary",
+          position: "bottom-center",
+          type: "error",
+          duration: "3000",
+        });
+      }
+    },
     async getData() {
       this.loading = true;
       try {
@@ -179,6 +202,7 @@ export default {
     },
     async getPlayers() {
       const resp = await fetchOneGuild(this.guildName);
+      console.log(resp);
       const owner_id = resp.data.owner_id;
       if (owner_id == localStorage.getItem("user_id")) this.ownerGuild = true;
       this.guildId = resp.data._id;
@@ -201,7 +225,7 @@ export default {
     async getCharacter() {
       this.playerList.forEach(async (player) => {
         const resp = await fetchCharacter(player.realm, player.name);
-        this.guild.push({ ...resp.data });
+        this.guild.push({ ...resp.data, owner_id: player.owner_id });
       });
     },
 

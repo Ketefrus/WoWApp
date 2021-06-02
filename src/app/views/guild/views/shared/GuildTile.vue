@@ -8,23 +8,43 @@
       <span class="sr-only">Loading...</span>
     </div>
   </div>
-  <a :class="'player tank'" @click="goToDetail(character)" v-else>
+  <a :class="'player dps'" @click="goToDetail(character)" v-else>
     <div class="role"></div>
     <div class="card">
       <div
         :class="'avatar'"
         :style="{ backgroundImage: `url(${image.assets[1].value})` }"
-      ></div>
+      >
+        <CButtonClose
+          v-if="canDelete"
+          v-c-tooltip="{
+            content: 'Eliminar personaje de la hermandad',
+            placement: 'left',
+          }"
+          @click.stop="deleteCharacter"
+          buttonClasses="text-danger close"
+          :style="{ margin: '5px 15px', 'font-size': '1.5rem' }"
+        ></CButtonClose>
+      </div>
       <div class="about">
         <h1 :class="`${character.character_class.name.en_GB}`">
           {{ character.name }}
         </h1>
-        <small>{{character.character_class.name.es_ES}} {{character.active_spec.name.es_ES}}</small>
-        <div class="flex-main text-muted text-small">Nivel {{character.level}}</div>
+        <small
+          >{{ character.character_class.name.es_ES }}
+          {{ character.active_spec.name.es_ES }}</small
+        >
+        <div class="flex-main text-muted text-small">
+          Nivel {{ character.level }}
+        </div>
         <div class="flex text-muted text-small">
-          <div class="flex-main">{{character.average_item_level}} ilvl</div>
+          <div class="flex-main">{{ character.average_item_level }} ilvl</div>
+
+          <div class="flex-main"></div>
         </div>
       </div>
+
+      <!-- <CButton block color="danger" :style="{'padding-bottom':'0'}" variant="ghost"> </CButton> -->
     </div>
   </a>
 </template>
@@ -43,19 +63,29 @@ export default {
       },
       required: true,
     },
+    admin: { type: Boolean },
   },
   data() {
     return {
       stringUtils: stringUtils,
       image: null,
       loading: true,
+      canDelete: false,
     };
   },
   computed: {},
   async mounted() {
     await this.getRenderTile(this.character);
+    this.canDelete =
+      localStorage.getItem("user_id") == this.character.owner_id || admin
+        ? true
+        : false;
   },
   methods: {
+    deleteCharacter() {
+      this.$emit('deleteCharacter', this.character.name.toLowerCase());
+      
+    },
     async getRenderTile(player) {
       console.log(player);
       this.loading = true;
@@ -66,8 +96,11 @@ export default {
     },
 
     goToDetail(player) {
-      this.$router.push({path: `/hermandad/detalle/${player.id}`, query: {realm: player.realm.slug, name: player.name}})
-    }
+      this.$router.push({
+        path: `/hermandad/detalle/${player.id}`,
+        query: { realm: player.realm.slug, name: player.name },
+      });
+    },
   },
 };
 </script>

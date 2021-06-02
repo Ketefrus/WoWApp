@@ -2,7 +2,9 @@
   <div class="container offset">
     <div class="flex wrapable" :style="{ marginBottom: 15 }">
       <div class="flex-main">
-        <h1 :style="{ lineHeight: 1.4, margin: 0, padding: 2}">LISTADO DE PERSONAJES</h1>
+        <h1 :style="{ lineHeight: 1.4, margin: 0, padding: 2 }">
+          LISTADO DE PERSONAJES
+        </h1>
         <div class="panel">
           <!-- <div class="panel-heading">
         <h1 :style="{ lineHeight: 1.4, margin: 0}">LISTADO DE PERSONAJES</h1>
@@ -29,9 +31,7 @@
                   <span v-if="item.guild_name && item.guild_name != ''">
                     <CButton color="link">{{ item.guild_name }}</CButton>
                   </span>
-                  <span v-else>
-                    Sin hermandad
-                  </span>
+                  <span v-else> Sin hermandad </span>
                 </td>
               </template>
               <template #name="{ item }">
@@ -49,6 +49,17 @@
                   </span>
                 </td>
               </template>
+              <template #actions="{ item }">
+                <td class="align-middle">
+                  <CButton
+                    color="danger"
+                    @click="deleteCharacter(item)"
+                    variant="ghost"
+                  >
+                    Eliminar personaje
+                  </CButton>
+                </td>
+              </template>
             </CDataTable>
           </div>
         </div>
@@ -58,7 +69,10 @@
 </template>
 
 <script>
-import { fetchMyCharacters } from "@/app/shared/services/character-service";
+import {
+  fetchMyCharacters,
+  deleteCharacter,
+} from "@/app/shared/services/character-service";
 import { renderCharacter } from "@/app/shared/services/character-service";
 
 export default {
@@ -72,6 +86,7 @@ export default {
         { key: "name", label: "Personaje", sorter: true },
         { key: "realm", label: "Reino" },
         { key: "guild_name", label: "Hermandad" },
+        { key: "actions", label: "acciones", _style: "width: 25%" },
       ],
     };
   },
@@ -85,16 +100,17 @@ export default {
   methods: {
     async getData() {
       this.loading = true;
+      this.playerList = null;
       const resp = await fetchMyCharacters();
       console.log(resp);
-      if(resp.status == 204) {
+      if (resp.status == 204) {
         this.loading = false;
         return;
       }
       let characters = [...resp.data];
 
       await this.getMedia(characters);
-  
+
       this.playerList = characters;
       this.loading = false;
     },
@@ -102,19 +118,45 @@ export default {
       return Promise.all(
         character.map(async (c) => {
           const resp = await renderCharacter(c.realm, c.name);
-          
+
           const media = resp.data.assets[0].value;
           c.media = media;
         })
       );
     },
+    async deleteCharacter(char) {
+      console.log(char);
+      try {
+        await deleteCharacter(char._id);
+        this.$toasted.show("Personaje eliminado", {
+          theme: "toasted-primary",
+          position: "bottom-center",
+          type: "success",
+          duration: "3000",
+        });
+        await this.getData();
+      } catch (error) {
+        console.log(error);
+        this.$toasted.show("Se ha producido un error", {
+          theme: "toasted-primary",
+          position: "bottom-center",
+          type: "error",
+          duration: "3000",
+        });
+      }
+    },
     rowClicked(item, index, column, e) {
-
-      if (column == 'guild_name' && item.guild_name !== "")
-        this.$router.push({path: `/hermandad/listado/${item.guild_name}`, query: { name: item.guild_name }});
-      else
-        this.$router.push({path: `/personajes/detalle/${item._id}`, query: {realm: item.realm, name: item.name}})
-    }
+      if (column == "guild_name" && item.guild_name !== "")
+        this.$router.push({
+          path: `/hermandad/listado/${item.guild_name}`,
+          query: { name: item.guild_name },
+        });
+      else if (column != "actions")
+        this.$router.push({
+          path: `/personajes/detalle/${item._id}`,
+          query: { realm: item.realm, name: item.name },
+        });
+    },
   },
 };
 </script>

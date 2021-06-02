@@ -37,7 +37,7 @@ const fetchGuild = () => {
 };
 
 const fetchMyCharacters = () => {
-  return axios.get(`${apiGlobalConstants.utils}/usuario/personajes`, {
+  return axios.get(`${apiGlobalConstants.utils}/usuario/personaje/index`, {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
       "X-Requested-With": "XMLHttpRequest"
@@ -46,15 +46,33 @@ const fetchMyCharacters = () => {
 };
 
 const addCharacter = (character, faction) => {
-  return axios.post(`${apiGlobalConstants.utils}/personaje/nuevo`, {realm: character.realm, name: character.name, faction: faction}, {
+  return axios.post(
+    `${apiGlobalConstants.utils}/personaje/nuevo`,
+    { realm: character.realm, name: character.name, faction: faction },
+    {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+        "X-Requested-With": "XMLHttpRequest"
+      }
+    }
+  );
+};
+
+const deleteCharacter = characterId => {
+  return axios.delete(`${apiGlobalConstants.utils}/usuario/personaje/delete`, {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
-      "X-Requested-With": "XMLHttpRequest"
+      "X-Requested-With": "XMLHttpRequest",
+      "Content-Type": "application/json"
+    },
+    data: {
+      id: characterId
     }
-  })
-}
+  });
+};
 export {
   addCharacter,
+  deleteCharacter,
   fetchMyCharacters,
   fetchCharacter,
   renderCharacter,

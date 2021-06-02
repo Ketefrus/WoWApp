@@ -21,13 +21,32 @@
       />
     </CSidebarBrand>
 
-    <CRenderFunction flat :content-to-render="$options.nav"/>
-
-
+    <!-- <CRenderFunction flat :content-to-render="$options.nav" /> -->
+    <!-- <CSidebarNavTitle>USUARIO</CSidebarNavTitle> -->
     <CSidebarNav>
-      <CSidebarNavItem @click.native="logout" name="Logout" icon="cil-speedometer">
-      </CSidebarNavItem>
-      </CSidebarNav>
+      <CSidebarNavTitle
+        :style="{ 'font-size': '13px', color: 'black', 'text-align': 'center' }"
+        >INICIO</CSidebarNavTitle
+      >
+      <CSidebarNavItem name="Inicio" to="/dashboard" icon="cil-home" />
+      <CSidebarNavItem name="Hermandades" to="/hermandad" icon="cil-gamepad" />
+      <CSidebarNavDivider class="m-4" />
+      <CSidebarNavTitle
+        :style="{ 'font-size': '13px', color: 'black', 'text-align': 'center' }"
+        >USUARIO</CSidebarNavTitle
+      >
+      <CSidebarNavItem
+        name="Mis personajes"
+        to="/personajes"
+        icon="cil-people"
+      />
+      <CSidebarNavItem
+        @click.native="logout"
+        name="Logout"
+        icon="cil-speedometer"
+      />
+    </CSidebarNav>
+
     <CSidebarMinimizer
       class="d-md-down-none"
       @click.native="$store.commit('set', ['sidebarMinimize', !minimize])"
@@ -50,17 +69,17 @@ export default {
     },
   },
   methods: {
-    logout () {
-        localStorage.removeItem("token"); // access_token
-  localStorage.removeItem("user_name");
-  localStorage.removeItem("user_id");
-  localStorage.removeItem("login_time");
-  localStorage.removeItem("expires_in");
-      this.$router.push({ path: '/login' })
+    logout() {
+      localStorage.removeItem("token"); // access_token
+      localStorage.removeItem("user_name");
+      localStorage.removeItem("user_id");
+      localStorage.removeItem("login_time");
+      localStorage.removeItem("expires_in");
+      this.$router.push({ path: "/login" });
     },
     test() {
-      console.log('ye');
-    }
-  }
+      console.log("ye");
+    },
+  },
 };
 </script>

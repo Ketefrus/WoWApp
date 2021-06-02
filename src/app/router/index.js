@@ -11,6 +11,7 @@ const CharacterList = () => import("@/app/views/main/components/CharacterList");
 const CharacterDetail = () =>import("@/app/views/main/components/CharacterDetail");
 const Login = () => import("@/app/views/auth/Login");
 const Register = () => import("@/app/views/auth/Register");
+const Perfil = () => import("@/app/views/auth/Perfil");
 
 Vue.use(Router);
 
@@ -75,6 +76,14 @@ function configRoutes() {
             }
           },
           children: [...guildRoutes]
+        },
+        {
+          path: "perfil",
+          name: "Perfil",
+          component: Perfil,
+          meta: {
+            auth: true
+          }
         }
       ]
     },
@@ -87,7 +96,7 @@ function configRoutes() {
       path: "/register",
       name: "Registro",
       component: Register
-    }
+    },
   ];
 }
 let checkValid = async () =>
@@ -102,8 +111,6 @@ router.beforeEach(async (to, from, next) => {
 
   if (token) {
     let response = await checkValid();
-
-    console.log(response);
 
     if (response.status == 200) {
       let now = moment();

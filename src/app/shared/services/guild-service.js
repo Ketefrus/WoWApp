@@ -37,7 +37,7 @@ const addGuild = (name, faction) => {
 }
 
 const addCharacterGuild = (name, character_id) => {
-  return axios.post(`${apiGlobalConstants.utils}/hermandad/personaje/nuevo`, {name: name, character_id: character_id}, {
+  return axios.post(`${apiGlobalConstants.utils}/hermandad/personajes/nuevo`, {name: name, character_id: character_id}, {
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + localStorage.getItem('token'),
@@ -47,17 +47,27 @@ const addCharacterGuild = (name, character_id) => {
 
 const updateRecluitment = (guildId, open) => {
   return axios.put(`${apiGlobalConstants.utils}/hermandad/reclutaciones`, {guildId, open},{
-    // params: {
-    //   guildId: guildId,
-    //   open: open
-    // },
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + localStorage.getItem('token'),
     }
   })
 }
+
+const deleteCharacterGuild = (name) => {
+  return axios.delete(`${apiGlobalConstants.utils}/hermandad/personajes/delete`, {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+      "X-Requested-With": "XMLHttpRequest",
+      "Content-Type": "application/json"
+    },
+    data: {
+      name: name
+    }
+  });
+}
 export {
+  deleteCharacterGuild,
   updateRecluitment,
   fetchAllGuilds,
   addCharacterGuild,

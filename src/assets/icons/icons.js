@@ -82,7 +82,9 @@ import {
   cilUser,
   cilUserFemale,
   cilUserFollow,
-  cilXCircle
+  cilXCircle,
+  cilHome,
+  cilGamepad,
 
 } from '@coreui/icons'
 import { logo } from './logo'
@@ -91,6 +93,8 @@ export const iconsSet = Object.assign(
   {},
   { logo },
   {
+    cilGamepad,
+    cilHome,
     cilBolt,
     cilGem,
     cilSchool,
