@@ -1,8 +1,8 @@
 import axios from "axios";
-
+import { apiGlobalConstants } from "@/app/global/config";
 const login = (user, password) => {
   return axios.post(
-    `http://localhost:8085/auth/login`,
+    `${apiGlobalConstants.auth}/login`,
     { login: user, password: password },
     {
       headers: {
@@ -14,7 +14,7 @@ const login = (user, password) => {
 };
 
 const getLoggedUser = () => {
-  return axios.get(`http://localhost:8085/auth/checkLogged`, {
+  return axios.get(`${apiGlobalConstants.auth}/checkLogged`, {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
       "Content-Type": "application/json"
@@ -23,7 +23,7 @@ const getLoggedUser = () => {
 };
 
 const refresh = () => {
-  return axios.get(`http://localhost:8085/auth/refresh`, {
+  return axios.get(`${apiGlobalConstants.auth}/refresh`, {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
       "X-Requested-With": "XMLHttpRequest"
@@ -32,7 +32,7 @@ const refresh = () => {
 };
 const register = (user, password) => {
   return axios.post(
-    `http://localhost:8085/auth/register`,
+    `${apiGlobalConstants.auth}/register`,
     { username: user, password: password },
     {
       headers: {
@@ -45,7 +45,7 @@ const register = (user, password) => {
 
 const changePassword = (password) => {
   return axios.put(
-    `http://localhost:8085/auth/password`,
+    `${apiGlobalConstants.auth}/password`,
     { password: password },
     {
       headers: {
