@@ -13,16 +13,6 @@ export default {
   props: {
     item: { type: Object, required: true },
   },
-  computed: {
-    // equipment: function () {
-    //   this.items.map((p) => {
-    //     p.gearSlot = this.checkGearSlot(p);
-    //     [...this.items];
-    //   });
-
-    //   return [...this.items];
-    // },
-  },
   data() {
     return {
       stringUtils: stringUtils,

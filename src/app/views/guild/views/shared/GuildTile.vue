@@ -8,7 +8,7 @@
       <span class="sr-only">Loading...</span>
     </div>
   </div>
-  <a :class="'player dps'" @click="goToDetail(character)" v-else>
+  <a class="player" :class="canDelete ? 'dps' : 'tank'" @click="goToDetail(character)" v-else>
     <div class="role"></div>
     <div class="card">
       <div
@@ -76,6 +76,7 @@ export default {
   computed: {},
   async mounted() {
     await this.getRenderTile(this.character);
+
     this.canDelete =
       localStorage.getItem("user_id") == this.character.owner_id || admin
         ? true
@@ -87,10 +88,8 @@ export default {
       
     },
     async getRenderTile(player) {
-      console.log(player);
       this.loading = true;
       const resp = await renderCharacter(player.realm.slug, player.name);
-      console.log(resp);
       this.image = resp.data;
       this.loading = false;
     },

@@ -41,10 +41,19 @@
         icon="cil-people"
       />
       <CSidebarNavItem
+        name="Mi perfil"
+        to="/perfil"
+        icon="cil-settings"
+      />
+
+        <CSidebarNavItem
+        :style="{'margin-top':'auto'}"
         @click.native="logout"
         name="Logout"
-        icon="cil-speedometer"
+        icon="cil-power-standby"
       />
+      
+
     </CSidebarNav>
 
     <CSidebarMinimizer
@@ -77,9 +86,7 @@ export default {
       localStorage.removeItem("expires_in");
       this.$router.push({ path: "/login" });
     },
-    test() {
-      console.log("ye");
-    },
+
   },
 };
 </script>

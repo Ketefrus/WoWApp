@@ -14,7 +14,8 @@ import Multiselect from 'vue-multiselect'
 import { ModelSelect } from 'vue-search-select'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 import 'vue-search-select/dist/VueSearchSelect.css'
-import Vuelidate from 'vuelidate'
+import Vuelidate from 'vuelidate';
+import VueDiscordMessage from 'vue-discord-message';
 
 Vue.component('model-select', ModelSelect);
 Vue.component('multiselect', Multiselect);
@@ -22,6 +23,7 @@ moment.locale('es');
 
 Vue.config.performance = true
 let Options = {}
+Vue.use(VueDiscordMessage);
 Vue.use(Toasted, Options)
 Vue.use(Vuelidate)
 Vue.use(CoreuiVue)

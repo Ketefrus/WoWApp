@@ -94,6 +94,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
     <CreateGuildModal
@@ -101,6 +102,7 @@
       @cancelled="(showModal=$event)"
       @create="create"
     />
+
   </div>
 </template>
 
@@ -127,10 +129,6 @@ export default {
       ],
     };
   },
-  // computed: {
-  //   async characters() {
-  //   }
-  // }
   async created() {
     await this.getData();
   },
