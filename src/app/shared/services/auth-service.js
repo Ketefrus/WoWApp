@@ -42,6 +42,19 @@ const register = (user, password) => {
     }
   );
 };
+
+const changePassword = (password) => {
+  return axios.put(
+    `http://localhost:8085/auth/password`,
+    { password: password },
+    {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+        "X-Requested-With": "XMLHttpRequest"
+      }
+    }
+  )
+}
 const logout = () => {
   localStorage.removeItem("token", resp.data.token); // access_token
   localStorage.removeItem("user_name", resp.data.name);
@@ -49,4 +62,4 @@ const logout = () => {
   localStorage.removeItem("login_time", moment());
   localStorage.removeItem("expires_in", resp.data.expires_in);
 };
-export { register, login, getLoggedUser, refresh, logout };
+export { changePassword, register, login, getLoggedUser, refresh, logout };

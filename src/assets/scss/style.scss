@@ -15,6 +15,32 @@
 // If you want to add something do it here
 @import "custom";
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $panelColor;
+  -webkit-transform-origin-y: 100%;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $primaryColor;
+  border-radius: 1px;
+  vertical-align: bottom;
+  transform-origin: 100%;
+  -webkit-transform-origin-y: 100%;
+  -ms-transform-origin-y: 100%;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: darken($color: $primaryColor, $amount: 10%);
+}
+
 .card-header:not(.content-center) > .c-icon:first-child {
   margin-right: 0.1rem;
   margin-top: 0.1rem;
@@ -22,6 +48,9 @@
   width: 1.2rem;
   height: 1.2rem;
   font-size: 1.2rem;
+}
+.c-main {
+  padding-bottom: 2rem;
 }
 .c-app {
   background-color: $backgroundColor;

@@ -26,7 +26,7 @@
                   :loading="loading"
                   label="value"
                   track-by="value"
-                  placeholder="Escribe para buscar un cliente"
+                  placeholder="Escribe para buscar un servidor"
                   deselectLabel="Pulsa Enter para eliminar"
                   selectedLabel="Seleccionado"
                   selectLabel="Pulsa Enter para seleccionar"
@@ -94,8 +94,8 @@ export default {
 
       this.realms = resp.data.realms.map((p) => this.formatRealm(p));
       // this.search.realm = this.realms[0].value;
-      this.search.realm = { value: "sanguino"};
-      this.search.name = "mataojetes";
+      // this.search.realm = { value: "sanguino"};
+      // this.search.name = "mataojetes";
       this.loading = false;
     },
 

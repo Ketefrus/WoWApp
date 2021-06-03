@@ -95,40 +95,6 @@
           </div>
         </div>
 
-<discord-messages>
-	<discord-message>
-		<discord-embed
-			slot="embeds"
-			color="#0099ff"
-			title="Some title"
-			url="https://discord.js.org/"
-			thumbnail="https://i.imgur.com/wSTFkRM.png"
-			image="https://i.imgur.com/wSTFkRM.png"
-			footer-image="https://i.imgur.com/wSTFkRM.png"
-			timestamp="01/01/2018"
-			author-name="Some name"
-			author-image="https://i.imgur.com/wSTFkRM.png"
-			author-url="https://discord.js.org/"
-		>
-			Some description here
-			<embed-fields slot="fields">
-				<embed-field title="Regular field title">
-					Some value here
-				</embed-field>
-				<embed-field :inline="true" title="Inline field title">
-					Some value here
-				</embed-field>
-				<embed-field :inline="true" title="Inline field title">
-					Some value here
-				</embed-field>
-				<embed-field :inline="true" title="Inline field title">
-					Some value here
-				</embed-field>
-			</embed-fields>
-			<span slot="footer">Some footer text here</span>
-		</discord-embed>
-	</discord-message>
-</discord-messages>
       </div>
     </div>
     <CreateGuildModal

@@ -92,15 +92,18 @@
                 <h3 :style="{ 'font-size': '2em' }">Información y avisos</h3>
                 <p class="text-justify mt-4">Lorem ipsum blablablabla</p>
               </div>
-              <discord-messages>
+              <discord-messages v-if="messages.length > 0" :compact-mode="true">
+                <CScrollbar />
                 <discord-message
                   v-for="(message, index) in messages"
                   :key="index"
+                  :author="message.nameUser"
                 >
-                  {{ message }}
+                  {{ message.message }}
                 </discord-message>
               </discord-messages>
               <CInput
+                v-if="member"
                 type="text"
                 id="message"
                 name="message"
@@ -109,7 +112,10 @@
                 v-on:keypress.enter="addMessage"
               >
                 <template #append>
-                  <CButton @click="addMessage" shape="square" color="outline-warning"
+                  <CButton
+                    @click="addMessage"
+                    shape="square"
+                    color="outline-warning"
                     >Enviar</CButton
                   >
                 </template>
@@ -159,6 +165,7 @@ import {
   addCharacterGuild,
   updateRecluitment,
   deleteCharacterGuild,
+  postMessage,
 } from "@/app/shared/services/guild-service";
 import {
   fetchCharacter,
@@ -175,7 +182,7 @@ export default {
     return {
       playerList: [],
       guild: [],
-      messages: ["Guapa", "Holi"],
+      messages: [],
       guildOpen: false,
       loading: true,
       guildName: null,
@@ -184,18 +191,25 @@ export default {
       guildId: null,
       ownerGuild: false,
       member: false,
+      faction: null,
       message: "",
       badgeText: "",
       myChar: [],
     };
   },
-  async created() {
+  async mounted() {
     if (this.$route.query) {
       this.guildName = this.$route.query.name;
       await this.getData();
+      this.scrollerBottom();
     }
   },
   methods: {
+    // Sets the scrollbar chat to the end
+    scrollerBottom() {
+      let objDiv = document.getElementsByClassName("discord-messages");
+      objDiv[0].scrollTop = objDiv[0].scrollHeight;
+    },
     async deleteCharacter(character) {
       try {
         await deleteCharacterGuild(character);
@@ -225,6 +239,7 @@ export default {
 
         await this.recluitmentChecker();
         await this.getCharacter();
+
         this.member = this.memberChecker();
 
         this.loading = false;
@@ -241,12 +256,12 @@ export default {
     },
     async getPlayers() {
       const resp = await fetchOneGuild(this.guildName);
-      console.log(resp);
       const owner_id = resp.data.owner_id;
       if (owner_id == localStorage.getItem("user_id")) this.ownerGuild = true;
       this.guildId = resp.data._id;
       this.guildOpen = resp.data.open;
-
+      this.faction  = resp.data.faction;
+      this.messages  = resp.data.messages;
       const characters = await fetchGuildCharacters(this.guildId);
       return [...characters.data];
     },
@@ -256,8 +271,8 @@ export default {
         const clientChar = await fetchMyCharacters();
         this.myChar = [...clientChar.data];
         this.myChar = this.myChar.filter(
-          (c) => c.guild_name == "" && c.faction == resp.data.faction
-        ); // && c.faction == resp.data.faction
+          (c) => c.guild_name == "" && c.faction == this.faction
+        ); 
       } else {
         this.badgeText = "Abrir reclutaciones";
       }
@@ -277,9 +292,14 @@ export default {
       return search == null ? false : true;
     },
 
-    addMessage() {
-      if (this.message!="") {
-        this.messages.push(this.message);
+    async addMessage() {
+      if (this.message != "") {
+        console.log(this.guildName);
+        await postMessage(this.guildName, this.message);
+        await this.getData();
+        // console.log(resp.data.messages);
+        // this.messages.push(this.message);
+        this.scrollerBottom();
         this.message = "";
       }
     },
@@ -310,7 +330,7 @@ export default {
       if (this.ownerGuild) {
         try {
           const open = !this.guildOpen;
-          this.guildOpen = await updateRecluitment(this.guildId, open);
+          await updateRecluitment(this.guildId, open);
           this.getData();
           this.$toasted.show("Reclutaciones actualizadas", {
             theme: "toasted-primary",
@@ -338,5 +358,10 @@ export default {
   font-weight: 200;
   font-size: 20px;
   cursor: pointer;
+}
+.discord-messages {
+  height: 151px;
+  -webkit-transform-origin-y: 100%;
+  overflow-y: scroll;
 }
 </style>

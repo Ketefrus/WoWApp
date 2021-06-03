@@ -40,7 +40,7 @@
                       >
                     </CCol>
                     <CCol col="6" class="text-right">
-                      <CButton color="link" class="px-0"
+                      <CButton shape="square" color="link" class="px-0"
                         >¿Contraseña olvidada?</CButton
                       >
                       <CButton color="link" class="d-lg-none"
@@ -62,10 +62,10 @@
                   Regístrate
                 </h3>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Únete a WoWChecker para tener control sobre tus personajes y los del resto, 
+                  unirte a hermandades y jugar con gente de todo el mundo.
                 </p>
-                <CButton color="dark" @click="register" variant="outline" size="lg">
+                <CButton color="dark" @click="register" shape="square" variant="outline" size="lg">
                   Registrarse
                 </CButton>
               </CCardBody>
