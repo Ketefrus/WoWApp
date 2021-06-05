@@ -63,7 +63,7 @@ export default {
       },
       required: true,
     },
-    admin: { type: Boolean },
+    admin: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -78,7 +78,7 @@ export default {
     await this.getRenderTile(this.character);
 
     this.canDelete =
-      localStorage.getItem("user_id") == this.character.owner_id || admin
+      localStorage.getItem("user_id") == this.character.owner_id || this.admin
         ? true
         : false;
   },

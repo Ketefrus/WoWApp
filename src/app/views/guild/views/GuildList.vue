@@ -156,6 +156,7 @@ export default {
     async create(guild) {
       try {
         await addGuild(guild.name, guild.faction);
+        this.showModal = false;
         await this.getData();
       } catch (err) {
         console.log(err);
