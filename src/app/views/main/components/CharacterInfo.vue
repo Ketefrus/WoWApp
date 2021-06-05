@@ -130,6 +130,7 @@ export default {
   },
   methods: {
     async getData() {
+      if (this.search) {
       this.loading = true;
 
       await this.getSpecialization(this.search);
@@ -138,6 +139,7 @@ export default {
       await this.getStats(this.search);
 
       this.loading = false;
+      }
     },
     async getRenderCharacter(search) {
       const resp = await renderCharacter(search.realm, search.name);
