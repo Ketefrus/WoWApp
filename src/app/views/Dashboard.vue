@@ -11,7 +11,7 @@
               Utiliza el buscador para encontrar personajes y analizar su
               equipo.
               <br />Puedes reclamar un personaje que no haya sido reclamado
-              antes para acceder a él rápidamente y consultar su equipo y unirlo
+              antes para acceder a él rápidamente, consultar su equipo y unirlo
               a hermandades.
             </p>
           </div>

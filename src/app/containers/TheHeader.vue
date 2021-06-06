@@ -1,16 +1,7 @@
 <template>
 
-    <!-- <CToggler
-      in-header
-      class="ml-3 d-lg-none"
-      @click="$store.commit('toggleSidebarMobile')"
-    />
-    <CToggler
-      in-header
-      class="ml-3 d-md-down-none"
-      @click="$store.commit('toggleSidebarDesktop')"
-    />
-    <CHeaderBrand class="mx-auto d-lg-none" to="/">
+
+    <!-- <CHeaderBrand class="mx-auto d-lg-none" to="/">
       <CIcon name="logo" height="48" alt="Logo"/>
     </CHeaderBrand>
     <CHeaderNav class="d-md-down-none mr-auto">
@@ -49,6 +40,16 @@
       <TheHeaderDropdownAccnt/>
     </CHeaderNav> -->
     <CSubheader class="px-3">
+    <CToggler
+      in-header
+      class="ml-3 d-lg-none"
+      @click="$store.commit('toggleSidebarMobile')"
+    />
+    <!-- <CToggler
+      in-header
+      class="ml-3 d-md-down-none"
+      @click="$store.commit('toggleSidebarDesktop')"
+    /> -->
       <CBreadcrumbRouter class="border-0 mb-0"/>
     </CSubheader>
 
@@ -64,3 +65,8 @@ export default {
   }
 }
 </script>
+<style>
+.c-subheader .c-header-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(250, 183, 0, 0.5)' stroke-width='2.25' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+</style>

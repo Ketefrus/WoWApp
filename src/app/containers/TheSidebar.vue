@@ -1,11 +1,13 @@
 <template>
   <CSidebar
+  
     fixed
     :minimize="!minimize"
     :colorScheme="'dark'"
     :show="show"
     @update:show="(value) => $store.commit('set', ['sidebarShow', value])"
   >
+
     <CSidebarBrand class="d-md-down-none" to="/">
       <img
         class="c-sidebar-brand-full logo m-1"
@@ -22,8 +24,8 @@
     </CSidebarBrand>
 
     <!-- <CRenderFunction flat :content-to-render="$options.nav" /> -->
-    <!-- <CSidebarNavTitle>USUARIO</CSidebarNavTitle> -->
     <CSidebarNav>
+
       <CSidebarNavTitle
         :style="{ 'font-size': '13px', color: 'black', 'text-align': 'center' }"
         >INICIO</CSidebarNavTitle

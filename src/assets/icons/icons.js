@@ -85,7 +85,8 @@ import {
   cilXCircle,
   cilHome,
   cilGamepad,
-  cilPowerStandby
+  cilPowerStandby,
+  cilMenu
 
 } from '@coreui/icons'
 import { logo } from './logo'
@@ -94,6 +95,7 @@ export const iconsSet = Object.assign(
   {},
   { logo },
   {
+    cilMenu,
     cilPowerStandby,
     cilGamepad,
     cilHome,
