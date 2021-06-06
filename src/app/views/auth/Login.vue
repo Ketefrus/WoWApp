@@ -40,11 +40,11 @@
                       >
                     </CCol>
                     <CCol col="6" class="text-right">
-                      <CButton shape="square" color="link" class="px-0"
+                      <!-- <CButton shape="square" color="link" class="px-0"
                         >¿Contraseña olvidada?</CButton
-                      >
-                      <CButton color="link" class="d-lg-none"
-                        >Register now!</CButton
+                      > -->
+                      <CButton @click="register" color="link" class="d-lg-none"
+                        >Regístrate!</CButton
                       >
                     </CCol>
                   </CRow>
